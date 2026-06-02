@@ -6,20 +6,32 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:init": "node --env-file=.env scripts/init-db.mjs"
   },
   "dependencies": {
+    "@openai/agents": "^0.8.5",
+    "@prisma/client": "^6.19.3",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.9.0",
+    "clsx": "^2.1.1",
+    "googleapis": "^171.4.0",
+    "jose": "^6.2.2",
     "next": "16.2.4",
+    "openai": "^6.34.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "prisma": "^6.19.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

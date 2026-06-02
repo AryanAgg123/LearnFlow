@@ -1,65 +1,78 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getCurrentSession } from "@/lib/auth/session";
 
-export default function Home() {
+const features = [
+  "A clean profile-first setup that captures the context agents need later.",
+  "Simple login, student dashboard shell, and a database model ready for growth.",
+  "OpenAI-ready backend boundaries for orchestration, tool use, and future planning flows.",
+];
+
+export default async function HomePage() {
+  const session = await getCurrentSession();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="shell py-6 md:py-10">
+      <section className="card overflow-hidden px-6 py-8 md:px-10 md:py-12">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl space-y-6">
+            <div className="pill">Student personalization, without the clutter</div>
+            <h1 className="max-w-3xl text-4xl font-extrabold leading-tight md:text-6xl">
+              A focused foundation for AI-powered study planning.
+            </h1>
+            <p className="max-w-2xl text-lg leading-8 text-[var(--muted)]">
+              Pathly gives 3rd-year students a clean place to sign in, capture
+              their learning context, and move into a personalized dashboard
+              that is ready for multi-agent orchestration next.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link className="btn btn-primary" href={session ? "/dashboard" : "/signup"}>
+                {session ? "Open dashboard" : "Create your account"}
+              </Link>
+              <Link className="btn btn-secondary" href={session ? "/profile" : "/login"}>
+                {session ? "Update profile" : "Sign in"}
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid w-full max-w-md gap-4">
+            <div className="rounded-[28px] bg-[#132238] p-6 text-white shadow-2xl">
+              <p className="text-sm uppercase tracking-[0.2em] text-blue-200">
+                Student snapshot
+              </p>
+              <div className="mt-4 space-y-3">
+                <div className="flex items-center justify-between rounded-2xl bg-white/8 px-4 py-3">
+                  <span className="text-sm text-blue-100">Target</span>
+                  <span className="font-semibold">Semester turnaround</span>
+                </div>
+                <div className="flex items-center justify-between rounded-2xl bg-white/8 px-4 py-3">
+                  <span className="text-sm text-blue-100">Time</span>
+                  <span className="font-semibold">2 hrs weekday</span>
+                </div>
+                <div className="flex items-center justify-between rounded-2xl bg-white/8 px-4 py-3">
+                  <span className="text-sm text-blue-100">Style</span>
+                  <span className="font-semibold">Practice + visuals</span>
+                </div>
+              </div>
+            </div>
+            <div className="rounded-[28px] bg-white/80 p-5 shadow-lg ring-1 ring-black/5">
+              <p className="font-semibold">Phase 1 includes</p>
+              <ul className="mt-3 space-y-2 text-sm text-[var(--muted)]">
+                <li>Auth and secure session handling</li>
+                <li>Student profile intake flow</li>
+                <li>Dashboard shell for future agents</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="grid gap-4 py-6 md:grid-cols-3">
+        {features.map((feature) => (
+          <article className="card p-6" key={feature}>
+            <p className="text-lg font-semibold leading-8">{feature}</p>
+          </article>
+        ))}
+      </section>
+    </main>
   );
 }
